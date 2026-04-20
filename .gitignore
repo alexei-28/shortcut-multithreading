@@ -22,3 +22,22 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# IntelliJ
+.idea/
+.idea/*.xml
+*.iml
+
+# Maven
+target/
+practice-1/target/
+practice-2/target/
+practice-3/target/
+practice-4/target/
+practice-5/target/
+practice-6/target/
+practice-7/target/
+practice-8/target/
+practice-9/target/
+practice-debug/target/
+benchmarks/target/
