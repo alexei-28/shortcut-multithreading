@@ -3,6 +3,10 @@ Shortcut multithreading practice project
 
 Repo: https://github.com/alexei-28/shortcut-multithreading
 
+Mentor platform - Shortcut: https://shortcut.education/
+
+Mentor repo(concurrent-course): https://github.com/LeksyIT/concurrent-course/tree/main
+
 # Практические задания по многопоточности в Java
 
 Этот каталог содержит практические задания для закрепления материала из статей по многопоточности.
