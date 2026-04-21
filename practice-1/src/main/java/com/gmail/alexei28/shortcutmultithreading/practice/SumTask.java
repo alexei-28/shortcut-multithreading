@@ -13,17 +13,24 @@ public class SumTask implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() {
+    public Integer call() throws InterruptedException {
         int result = 0;
-        for (int index = 1; index <= counter; index++) {
-            result = result + index;
+        try {
+            Thread.sleep(100); // имитация работы
+            for (int index = 1; index <= counter; index++) {
+                result = result + index;
+            }
+            System.out.println("call, thread = " + Thread.currentThread().getName() + ", result = " + result);
+            return result;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Флаг снова true(восстанавливаем флаг). Можно корректно обработать состояние потока.
+            System.out.println("call, Thread was interrupted");
+            throw e; // пробрасываем дальше
         }
-        System.out.println("call, thread = " + Thread.currentThread().getName() + ", result = " + result);
-        return result;
     }
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-        System.out.println("SumTask, java.version = " +  System.getProperty("java.version"));
+        System.out.println("SumTask, java.version = " + System.getProperty("java.version"));
         executeCallable();
     }
 

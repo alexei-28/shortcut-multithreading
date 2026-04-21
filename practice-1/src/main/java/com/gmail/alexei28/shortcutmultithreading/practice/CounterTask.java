@@ -25,8 +25,14 @@ public class CounterTask  implements Runnable {
      */
     @Override
     public void run() {
-        counter.incrementAndGet();
-        System.out.println("run, thread = " + Thread.currentThread().getName() + ", counter = " + counter.get());
+        try {
+            Thread.sleep(100); // имитация работы
+            counter.incrementAndGet(); // неблокирующая операция
+            System.out.println("run, thread = " + Thread.currentThread().getName() + ", counter = " + counter.get());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Флаг снова true(восстанавливаем флаг). Можно корректно обработать состояние потока.
+            System.out.println("run, Thread was interrupted");
+        }
     }
 
     public static void main(String[] args) throws InterruptedException {
