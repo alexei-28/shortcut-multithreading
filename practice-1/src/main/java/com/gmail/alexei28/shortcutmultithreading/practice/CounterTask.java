@@ -30,11 +30,11 @@ public class CounterTask  implements Runnable {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        System.out.println("CounterTask, java.versio = " +  System.getProperty("java.version"));
+        System.out.println("CounterTask, java.version = " +  System.getProperty("java.version"));
         createThreadWithRunnable();
     }
 
-    // Создает и запускает поток с Runnable
+    // метод createThreadWithRunnable, который создает и запускает поток с Runnable
     private static void createThreadWithRunnable() throws InterruptedException {
         AtomicInteger counter = new AtomicInteger(0);
         CounterTask task = new CounterTask(counter);
