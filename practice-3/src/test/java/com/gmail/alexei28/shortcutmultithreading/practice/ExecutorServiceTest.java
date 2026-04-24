@@ -56,4 +56,21 @@ class ExecutorServiceTest {
                 "ExecutorService должен быть завершен");
     }
 
+    /**
+     * Тест проверяет параллельную обработку списка элементов.
+     * ParallelProcessor должен обрабатывать все элементы параллельно.
+     */
+    @Test
+    @Timeout(10)
+    void testParallelProcessing() throws InterruptedException {
+        ParallelProcessor processor = new ParallelProcessor();
+        List<Integer> input = List.of(1, 2, 3, 4, 5);
+
+        List<Integer> results = processor.processInParallel(input, value -> value * 2, 3);
+
+        assertEquals(5, results.size(), "Должно быть обработано 5 элементов");
+        assertTrue(results.containsAll(List.of(2, 4, 6, 8, 10)),
+                "Результаты должны быть удвоены");
+    }
+
 }
