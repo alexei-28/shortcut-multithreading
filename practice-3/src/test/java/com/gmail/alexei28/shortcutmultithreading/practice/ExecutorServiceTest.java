@@ -129,4 +129,23 @@ class ExecutorServiceTest {
                 "ExecutorService должен быть завершен");
     }
 
+    /**
+     * Тест проверяет обработку исключений в задачах.
+     * Исключения должны быть обернуты в ExecutionException.
+     */
+    @Test
+    @Timeout(10)
+    void testExceptionHandling() throws InterruptedException {
+        TaskProcessor processor = new TaskProcessor(1);
+
+        Future<Integer> future = processor.processTask(() -> {
+            throw new RuntimeException("Тестовая ошибка");
+        });
+
+        assertThrows(ExecutionException.class, () -> future.get(),
+                "Должно быть выброшено ExecutionException");
+
+        processor.shutdownGracefully(1, TimeUnit.SECONDS);
+    }
+
 }
