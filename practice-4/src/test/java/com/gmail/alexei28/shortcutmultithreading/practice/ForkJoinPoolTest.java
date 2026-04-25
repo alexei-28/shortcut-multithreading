@@ -41,4 +41,30 @@ class ForkJoinPoolTest {
         assertEquals(expectedSum, result,
                 "Сумма должна быть вычислена корректно");
     }
+
+
+    /**
+     * Тест проверяет поиск максимального элемента в массиве через MaxTask.
+     * Задача должна использовать алгоритм "разделяй и властвуй" для параллельного поиска максимума.
+     */
+    @Test
+    @Timeout(10)
+    void testMaxTask() {
+        int[] array = new int[1000];
+        int maxValue = 0;
+        for (int i = 0; i < array.length; i++) {
+            array[i] = (int) (Math.random() * 10000);
+            if (array[i] > maxValue) {
+                maxValue = array[i];
+            }
+        }
+
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+
+        MaxTask task = new MaxTask(array, 0, array.length);
+        int result = pool.invoke(task);
+
+        assertEquals(maxValue, result,
+                "Максимальный элемент должен быть найден корректно");
+    }
 }

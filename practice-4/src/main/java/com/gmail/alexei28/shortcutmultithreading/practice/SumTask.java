@@ -9,7 +9,7 @@ public class SumTask extends RecursiveTask<Long> {
     private final long[] array;
     private final int start;
     private final int end;
-    private final int threshold = 10_000; // Порог для разделения задачи
+    private final int threshold = 500; // Порог для разделения задачи
 
     public SumTask(long[] array, int start, int end) {
         this.array = array;
