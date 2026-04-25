@@ -99,4 +99,34 @@ class ExecutorServiceTest {
                 "Все виртуальные потоки должны выполниться");
     }
 
+    /**
+     * Тест проверяет корректное завершение ExecutorService.
+     * TaskProcessor должен дождаться завершения всех задач перед завершением.
+     */
+    @Test
+    @Timeout(10)
+    void testShutdownGracefully() throws InterruptedException {
+        TaskProcessor processor = new TaskProcessor(2);
+        CountDownLatch latch = new CountDownLatch(5);
+
+        for (int i = 0; i < 5; i++) {
+            processor.processTask(() -> {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } finally {
+                    latch.countDown();
+                }
+                return 0;
+            });
+        }
+
+        assertTrue(processor.shutdownGracefully(5, TimeUnit.SECONDS),
+                "ExecutorService должен завершиться");
+
+        assertTrue(processor.isTerminated(),
+                "ExecutorService должен быть завершен");
+    }
+
 }
