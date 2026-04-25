@@ -73,4 +73,30 @@ class ExecutorServiceTest {
                 "Результаты должны быть удвоены");
     }
 
+    /**
+     * Тест проверяет работу виртуальных потоков (требует Java 21+).
+     * VirtualThreadExecutor должен выполнить все задачи в виртуальных потоках.
+     */
+    @Test
+    @Timeout(10)
+    void testVirtualThreads() throws InterruptedException, ExecutionException {
+        VirtualThreadExecutor executor = new VirtualThreadExecutor();
+        List<Runnable> tasks = new ArrayList<>();
+
+        for (int i = 0; i < 100; i++) {
+            tasks.add(() -> {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            });
+        }
+
+        int completed = executor.executeWithVirtualThreads(tasks);
+
+        assertEquals(100, completed,
+                "Все виртуальные потоки должны выполниться");
+    }
+
 }
