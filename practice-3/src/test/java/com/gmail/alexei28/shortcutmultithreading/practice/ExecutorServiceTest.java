@@ -148,4 +148,26 @@ class ExecutorServiceTest {
         processor.shutdownGracefully(1, TimeUnit.SECONDS);
     }
 
+    /**
+     * Тест проверяет обработку тайм-аутов при выполнении задач.
+     * При превышении тайм-аута должен быть выброшен TimeoutException.
+     */
+    @Test
+    @Timeout(10)
+    void testTimeout() throws InterruptedException {
+        TaskProcessor processor = new TaskProcessor(1);
+
+        Future<Integer> future = processor.processTask(() -> {
+            Thread.sleep(2000);
+            return 0;
+        });
+
+        assertThrows(TimeoutException.class, () -> {
+            future.get(500, TimeUnit.MILLISECONDS);
+        }, "Должен быть выброшен TimeoutException");
+
+        future.cancel(true);
+        processor.shutdownGracefully(1, TimeUnit.SECONDS);
+    }
+
 }
