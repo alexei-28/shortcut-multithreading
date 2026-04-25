@@ -41,4 +41,66 @@ class ForkJoinPoolTest {
         assertEquals(expectedSum, result,
                 "Сумма должна быть вычислена корректно");
     }
+
+    /**
+     * Тест проверяет поиск максимального элемента в массиве через MaxTask.
+     * Задача должна использовать алгоритм "разделяй и властвуй" для параллельного поиска максимума.
+     */
+    @Test
+    @Timeout(10)
+    void testMaxTask() {
+        int[] array = new int[1000];
+        int maxValue = 0;
+        for (int i = 0; i < array.length; i++) {
+            array[i] = (int) (Math.random() * 10000);
+            if (array[i] > maxValue) {
+                maxValue = array[i];
+            }
+        }
+
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+
+        MaxTask task = new MaxTask(array, 0, array.length);
+        int result = pool.invoke(task);
+
+        assertEquals(maxValue, result,
+                "Максимальный элемент должен быть найден корректно");
+    }
+
+    @Test
+    @Timeout(10)
+    void testWorkStealing() throws InterruptedException {
+        ForkJoinPool pool = new ForkJoinPool(4);
+
+        class SimpleTask extends RecursiveTask<Integer> {
+            private final int value;
+
+            SimpleTask(int value) {
+                this.value = value;
+            }
+
+            @Override
+            protected Integer compute() {
+                if (value < 10) {
+                    return value;
+                } else {
+                    SimpleTask left = new SimpleTask(value / 2);
+                    SimpleTask right = new SimpleTask(value - value / 2);
+                    left.fork();
+                    int rightResult = right.compute();
+                    int leftResult = left.join();
+                    return leftResult + rightResult;
+                }
+            }
+        }
+
+        SimpleTask task = new SimpleTask(100);
+        int result = pool.invoke(task);
+
+        assertEquals(100, result,
+                "Work-stealing должен обеспечить корректное выполнение");
+
+        pool.shutdown();
+        assertTrue(pool.awaitTermination(5, TimeUnit.SECONDS));
+    }
 }
