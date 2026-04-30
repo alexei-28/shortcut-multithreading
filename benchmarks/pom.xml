@@ -36,7 +36,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <mainClass>com.multithreading.benchmarks.BenchmarkRunner</mainClass>
+                    <mainClass>com.gmail.alexei28.shortcutmultithreading.benchmarks.BenchmarkRunner</mainClass>
                 </configuration>
             </plugin>
         </plugins>

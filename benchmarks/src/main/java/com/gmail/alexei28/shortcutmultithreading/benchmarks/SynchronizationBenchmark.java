@@ -27,7 +27,7 @@ public class SynchronizationBenchmark {
     public static void run() {
         System.out.println("┌────────────────────────────────────────────────────────────┐");
         System.out.println("│ SYNCHRONIZATION BENCHMARK                                  │");
-        System.out.println("│ " + THREADS + " потоков, " + String.format("%,d", INCREMENTS_PER_THREAD) + " инкрементов каждый                   │");
+        System.out.println("│ " + THREADS + " потоков, " + String.format("%,d", INCREMENTS_PER_THREAD) + " инкрементов каждый                    │");
         System.out.println("└────────────────────────────────────────────────────────────┘");
 
         long syncTime = runSynchronized();

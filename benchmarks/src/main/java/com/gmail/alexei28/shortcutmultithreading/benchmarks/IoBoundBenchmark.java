@@ -25,7 +25,7 @@ public class IoBoundBenchmark {
     public static void run() {
         System.out.println("┌────────────────────────────────────────────────────────────┐");
         System.out.println("│ IO-BOUND BENCHMARK                                         │");
-        System.out.println("│ Tasks: " + TASK_COUNT + ", каждая ждет " + IO_DELAY_MS + "ms (имитация HTTP)             │");
+        System.out.println("│ Tasks: " + TASK_COUNT + ", каждая ждет " + IO_DELAY_MS + "ms (имитация HTTP)              │");
         System.out.println("└────────────────────────────────────────────────────────────┘");
 
         // Теоретическое время для последовательного выполнения

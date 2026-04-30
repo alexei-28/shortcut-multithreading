@@ -14,8 +14,8 @@ public class BenchmarkRunner {
     public static void main(String[] args) {
         System.out.println("╔══════════════════════════════════════════════════════════════╗");
         System.out.println("║          JAVA CONCURRENCY BENCHMARKS                         ║");
-        System.out.println("║          Java " + Runtime.version() + "                                    ║");
-        System.out.println("║          Cores: " + Runtime.getRuntime().availableProcessors() + "                                            ║");
+        System.out.println("║          Java " + Runtime.version() + "                              ║");
+        System.out.println("║          Cores: " + Runtime.getRuntime().availableProcessors() + "                                           ║");
         System.out.println("╚══════════════════════════════════════════════════════════════╝");
         System.out.println();
 
