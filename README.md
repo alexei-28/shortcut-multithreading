@@ -3,6 +3,8 @@ Shortcut multithreading practice project
 
 Repo: https://github.com/alexei-28/shortcut-multithreading
 
+CI (GitHub Actions): https://github.com/alexei-28/shortcut-multithreading/actions
+
 Mentor platform - Shortcut: https://shortcut.education/
 
 Mentor repo(concurrent-course): https://github.com/LeksyIT/concurrent-course/tree/main
